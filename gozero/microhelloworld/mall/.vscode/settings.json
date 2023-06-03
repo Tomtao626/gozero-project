@@ -1,0 +1,16 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3309,
+            "driver": "MySQL",
+            "name": "zero_mall",
+            "database": "zero_mall",
+            "username": "root"
+        }
+    ]
+}
