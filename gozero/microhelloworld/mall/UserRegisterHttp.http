@@ -1,0 +1,9 @@
+POST http://localhost:8888/register
+Content-Type: application/json
+
+{
+  "name": "John 666",
+  "gender":"woman"
+}
+
+###

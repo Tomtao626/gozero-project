@@ -3,10 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
+	"rpc-common/types/user"
 	"user/internal/config"
 	"user/internal/server"
 	"user/internal/svc"
-	"user/types/user"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -24,13 +24,14 @@ func main() {
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
 
-	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+	register := func(grpcServer *grpc.Server) {
 		user.RegisterUserServer(grpcServer, server.NewUserServer(ctx))
 
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)
 		}
-	})
+	}
+	s := zrpc.MustNewServer(c.RpcServerConf, register)
 	defer s.Stop()
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
